@@ -1,4 +1,4 @@
-package com.example.application.data;
+package com.inteligo.application.data;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

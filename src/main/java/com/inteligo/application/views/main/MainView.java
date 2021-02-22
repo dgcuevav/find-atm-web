@@ -1,4 +1,4 @@
-package com.example.application.views.main;
+package com.inteligo.application.views.main;
 
 import java.util.Optional;
 
@@ -20,10 +20,8 @@ import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
-import com.vaadin.flow.theme.Theme;
-import com.example.application.views.main.MainView;
-import com.example.application.views.findmyatm.FindmyatmView;
-import com.example.application.views.about.AboutView;
+import com.inteligo.application.views.findmyatm.FindmyatmView;
+import com.inteligo.application.views.about.AboutView;
 
 /**
  * The main view is a top-level placeholder for other views.
