@@ -1,16 +1,19 @@
 package com.inteligo.application.data.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.util.List;
 
 @Data
 @Builder
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExchangeRate {
-  private final String source;
-  private final List<Currency> currencies;
+  private String source;
+  private String code;
+  private String rate;
 
 }

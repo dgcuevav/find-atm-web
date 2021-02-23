@@ -1,4 +1,4 @@
-package com.inteligo.application.data.entity;
+package com.inteligo.application.data.dto;
 
 import lombok.Builder;
 import lombok.Data;
