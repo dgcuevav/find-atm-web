@@ -1,6 +1,6 @@
 package com.inteligo.application.api.exchangeRate;
 
-import com.inteligo.application.data.dto.ExchangeRateResponse;
+import com.inteligo.application.data.dto.exchangeRate.ExchangeRateResponse;
 import reactor.core.publisher.Mono;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
