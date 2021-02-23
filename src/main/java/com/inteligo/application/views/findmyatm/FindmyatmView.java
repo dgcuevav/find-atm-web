@@ -5,6 +5,7 @@ import com.flowingcode.vaadin.addons.googlemaps.GoogleMap.MapType;
 import com.flowingcode.vaadin.addons.googlemaps.GoogleMapMarker;
 import com.flowingcode.vaadin.addons.googlemaps.Icon;
 import com.flowingcode.vaadin.addons.googlemaps.LatLon;
+import com.inteligo.application.data.entity.CurrencyItem;
 import com.inteligo.application.data.entity.ExchangeRate;
 import com.inteligo.application.data.service.AtmService;
 import com.inteligo.application.data.service.ExchangeRateService;
@@ -25,6 +26,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
 @Slf4j
 @Route(value = "home", layout = MainView.class)
 @PageTitle("Find my atm")
@@ -32,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @RouteAlias(value = "", layout = MainView.class)
 public class FindmyatmView extends VerticalLayout {
 
-  private ComboBox<String> currency = new ComboBox("Select Currency");
+  private ComboBox<CurrencyItem> currency = new ComboBox("Select Currency");
   private TextField rate = new TextField("1 USD equals");
   private GoogleMap gmaps;
 
@@ -68,14 +73,14 @@ public class FindmyatmView extends VerticalLayout {
 
         GoogleMapMarker marker = gmaps.addMarker("Center", new LatLon(atm.getLatitude(), atm.getLongitude()), true,
             "https://i.ibb.co/SJSWxNR/atm.png");
-        gmaps.addMarker(flowingmarker);
+        gmaps.addMarker(marker);
       });
 
       add(gmaps);
     });
     getRates.addClickListener(e -> {
 
-      ExchangeRate exr = exchangeRateService.getExchangeRate(currency.getValue());
+      ExchangeRate exr = exchangeRateService.getExchangeRate(currency.getValue().getCode());
       log.info("EXR = {}", exr);
       rate.setValue(exr.getRate());
     });
@@ -95,8 +100,9 @@ public class FindmyatmView extends VerticalLayout {
     currency.setWidth("120px");
     currency.setPlaceholder("Select Currency");
     currency.setPreventInvalidInput(true);
-    currency.setItems("EUR", "GBP", "CAD", "PLN");
-    currency.addCustomValueSetListener(e -> currency.setValue(e.getDetail()));
+
+    currency.setItems(fillCurrency());
+    currency.setItemLabelGenerator(CurrencyItem::getName);
 
     formLayout.add(currency, rate);
     return formLayout;
@@ -114,8 +120,17 @@ public class FindmyatmView extends VerticalLayout {
     return buttonLayout;
   }
 
-  private void fillAtm() {
+  private List<CurrencyItem> fillCurrency() {
+    List<CurrencyItem> currencyItems = new ArrayList<>();
+    currencyItems.add(CurrencyItem.builder().code("EUR").name("Euro").build());
+    currencyItems.add(CurrencyItem.builder().code("GBP").name("British Pound Sterling").build());
+    currencyItems.add(CurrencyItem.builder().code("CAD").name("Canadian Dollar").build());
+    currencyItems.add(CurrencyItem.builder().code("PLN").name("Polish Zloty").build());
+    currencyItems.add(CurrencyItem.builder().code("PEN").name("Peruvian Nuevo Sol").build());
+    currencyItems.add(CurrencyItem.builder().code("MXN").name("Mexican Peso").build());
 
+
+    return currencyItems;
   }
 
 }
