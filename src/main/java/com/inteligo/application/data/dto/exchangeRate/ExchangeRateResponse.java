@@ -1,4 +1,4 @@
-package com.inteligo.application.data.dto;
+package com.inteligo.application.data.dto.exchangeRate;
 
 import lombok.Builder;
 import lombok.Data;
